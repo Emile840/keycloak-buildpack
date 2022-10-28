@@ -48,6 +48,7 @@ finished
 
 
 step "Adding providers"
+echo ${KEYCLOAK_PROVIDERS}
 if [[ -f "${ENV_DIR}/KEYCLOAK_PROVIDERS" ]]; then
   KEYCLOAK_PROVIDERS=$(cat "${ENV_DIR}/KEYCLOAK_PROVIDERS")
   IFS=','
