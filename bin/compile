@@ -48,7 +48,6 @@ finished
 
 
 step "Adding providers"
-echo ${KEYCLOAK_PROVIDERS}
 if [[ -f "${ENV_DIR}/KEYCLOAK_PROVIDERS" ]]; then
   KEYCLOAK_PROVIDERS=$(cat "${ENV_DIR}/KEYCLOAK_PROVIDERS")
   IFS=','
@@ -65,6 +64,18 @@ if [[ -f "${ENV_DIR}/KEYCLOAK_PROVIDERS" ]]; then
     fi
   done
   IFS=' ' 
+fi
+
+step "Adding plugins"
+if [[ -f "${ENV_DIR}/KEYCLOAK_PLUGINS_DIR" ]]; then
+  KEYCLOAK_PLUGINS_DIR=$(cat "${ENV_DIR}/KEYCLOAK_PLUGINS_DIR")
+  add_plugins "${KEYCLOAK_PLUGINS_DIR}" "${KEYCLOAK_PATH}"
+fi
+
+step "Adding templates"
+if [[ -f "${ENV_DIR}/KEYCLOAK_TEMPLATES_DIR" ]]; then
+  KEYCLOAK_TEMPLATES_DIR=$(cat "${ENV_DIR}/KEYCLOAK_TEMPLATES_DIR")
+  add_templates "${KEYCLOAK_TEMPLATES_DIR}" "${KEYCLOAK_PATH}"
 fi
 
 if [[ -f "$ENV_DIR/KC_DB" ]]; then
